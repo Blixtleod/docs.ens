@@ -7,7 +7,7 @@ type Props = {
 
 export function Table({ columns, rows }: Props) {
   return (
-    <table className="Vocs_Table">
+    <table className="vocs_Table">
       <thead>
         <tr className="vocs_TableRow">
           {columns.map((column) => (
