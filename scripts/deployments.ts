@@ -263,9 +263,16 @@ export async function deployments() {
       DEPLOYMENTS.map(async (chain) => {
         await Promise.all(
           chain.contracts.map(async (contract) => {
-            const res = await fetch(
+            const response = await fetch(
               `https://raw.githubusercontent.com/ensdomains/ens-contracts/staging/deployments/${chain.slug}/${contract.github.filename}.json`
-            ).then((res) => res.json() as Promise<DeploymentFile>)
+            )
+            if (!response.ok) {
+              console.warn(
+                `Skipping ${chain.slug}/${contract.github.filename}: ${response.status} ${response.statusText}`
+              )
+              return
+            }
+            const res = (await response.json()) as DeploymentFile
 
             // Add the contract address to the deployment, if it's not hardcoded in the list above
             contract.address = contract.address || res.address

@@ -8,11 +8,11 @@ type EnsProfileProps =
   | { address: Address; name: undefined; hideAddress?: boolean }
 
 export function EnsProfile({ name, address, hideAddress }: EnsProfileProps) {
-  return name
-    ? EnsProfileFromName({ name, hideAddress })
-    : address
-      ? EnsProfileFromAddress({ address, hideAddress })
-      : null
+  return name ? (
+    <EnsProfileFromName name={name} hideAddress={hideAddress} />
+  ) : address ? (
+    <EnsProfileFromAddress address={address} hideAddress={hideAddress} />
+  ) : null
 }
 
 function EnsProfileFromName({
